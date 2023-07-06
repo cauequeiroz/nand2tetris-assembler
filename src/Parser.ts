@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { computationMap, destinationMap, jumpMap } from './Translator';
 
 export enum instructionTypes {
   A_INSTRUCTION = 'A',
@@ -7,16 +8,16 @@ export enum instructionTypes {
   LABEL = 'LABEL'
 };
 
-type Instruction =
+export type Instruction =
   | {
     type: instructionTypes.A_INSTRUCTION;
     value: string;
   }
   | {
     type: instructionTypes.C_INSTRUCTION;
-    destination: string;
-    computation: string;
-    jump: string;
+    destination: keyof typeof destinationMap;
+    computation: keyof typeof computationMap;
+    jump: keyof typeof jumpMap;
   }
   | {
     type: instructionTypes.LABEL;
@@ -27,7 +28,8 @@ export default class Parser {
   private file: string = "";
   private instructions: Instruction[] = [];
   private counter: number = 0;
-  
+  private outputFile!: fs.WriteStream;
+
   public lineCounter: number = 0;
   public nextInstruction!: Instruction;
 
@@ -35,6 +37,7 @@ export default class Parser {
     this.getFileFromDisk(filename);
     this.convertFileToInstructions();
     this.updateNextInstruction();
+    this.createOutputFile(filename);
   }
 
   private getFileFromDisk(filename: string): void {
@@ -75,21 +78,32 @@ export default class Parser {
 
     const destination = instruction.includes('=') ? instruction.split('=')[0] : '';
     const jump = instruction.includes(';') ? instruction.split(';')[1] : '';
-    
+
     let computation = instruction;
     computation = destination ? computation.split('=')[1] : computation;
     computation = jump ? computation.split(';')[0] : computation;
 
     return {
       type: instructionTypes.C_INSTRUCTION,
-      destination,
-      computation,
-      jump
+      destination: destination as keyof typeof destinationMap,
+      computation: computation as keyof typeof computationMap,
+      jump: jump as keyof typeof jumpMap
     }
   }
 
   private updateNextInstruction(): void {
     this.nextInstruction = this.instructions[this.counter];
+  }
+
+  private createOutputFile(filename: string) {
+    this.outputFile = fs.createWriteStream(
+      path.join(__dirname, filename.replace('.asm', '.hack')),
+      { flags: 'w' }
+    );    
+  }
+
+  public writeOnOutputFile(instruction: string) {
+    this.outputFile.write(`${instruction}\n`);
   }
 
   public advance(): void {
@@ -102,6 +116,6 @@ export default class Parser {
   }
 
   public hasNextInstruction(): boolean {
-    return this.counter <  this.instructions.length;
+    return this.counter < this.instructions.length;
   }
 }

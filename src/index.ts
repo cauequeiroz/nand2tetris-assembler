@@ -1,16 +1,19 @@
-import Parser, { instructionTypes } from "./Parser";
+import Parser from "./Parser";
+import Translator from "./Translator";
 
 class HackAssembler {
   private parser: Parser;
+  private translator: Translator;
 
   constructor() {
-    this.parser = new Parser('../programs/max/Max.asm');
-    
-    while(this.parser.hasNextInstruction()) {
-      const line = this.parser.lineCounter;
+    this.parser = new Parser('../programs/pong/PongL.asm');
+    this.translator = new Translator();
+
+    while (this.parser.hasNextInstruction()) {
       const instruction = this.parser.nextInstruction;
-      
-      console.log(`[${line}]`, instruction);
+      const binary = this.translator.convertInstruction(instruction);
+
+      this.parser.writeOnOutputFile(binary);
       this.parser.advance()
     }
   }
