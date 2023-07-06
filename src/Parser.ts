@@ -35,11 +35,28 @@ export default class Parser {
 
   constructor(filename: string) {
     this.getFileFromDisk(filename);
+    this.createOutputFile(filename);
     this.convertFileToInstructions();
     this.updateNextInstruction();
-    this.createOutputFile(filename);
   }
 
+  public writeOnOutputFile(instruction: string) {
+    this.outputFile.write(`${instruction}\n`);
+  }
+
+  public hasNextInstruction(): boolean {
+    return this.counter < this.instructions.length;
+  }
+
+  public advance(): void {
+    this.counter++;
+    this.updateNextInstruction();
+
+    if (this.nextInstruction && this.nextInstruction.type !== instructionTypes.LABEL) {
+      this.lineCounter++;
+    }
+  }
+  
   private getFileFromDisk(filename: string): void {
     this.file = fs.readFileSync(path.join(__dirname, filename), {
       encoding: "utf-8",
@@ -100,22 +117,5 @@ export default class Parser {
       path.join(__dirname, filename.replace('.asm', '.hack')),
       { flags: 'w' }
     );    
-  }
-
-  public writeOnOutputFile(instruction: string) {
-    this.outputFile.write(`${instruction}\n`);
-  }
-
-  public advance(): void {
-    this.counter++;
-    this.updateNextInstruction();
-
-    if (this.nextInstruction && this.nextInstruction.type !== instructionTypes.LABEL) {
-      this.lineCounter++;
-    }
-  }
-
-  public hasNextInstruction(): boolean {
-    return this.counter < this.instructions.length;
   }
 }
