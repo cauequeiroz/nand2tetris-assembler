@@ -57,6 +57,11 @@ export default class Parser {
     }
   }
   
+  public reset(): void {
+    this.counter = 0;
+    this.updateNextInstruction();
+  }
+
   private getFileFromDisk(filename: string): void {
     this.file = fs.readFileSync(path.join(__dirname, filename), {
       encoding: "utf-8",

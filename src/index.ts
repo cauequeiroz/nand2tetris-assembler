@@ -1,20 +1,53 @@
-import Parser from "./Parser";
+import Parser, { instructionTypes } from "./Parser";
+import SymbolTable from "./SymbolTable";
 import Translator from "./Translator";
 
 class HackAssembler {
   private parser: Parser;
   private translator: Translator;
+  private symbolTable: SymbolTable;
 
   constructor() {
-    this.parser = new Parser('../programs/pong/PongL.asm');
+    this.parser = new Parser('../programs/pong/Pong.asm');
     this.translator = new Translator();
+    this.symbolTable = new SymbolTable();
 
-    while (this.parser.hasNextInstruction()) {
-      const instruction = this.parser.nextInstruction;
-      const binary = this.translator.convertInstruction(instruction);
+    this.saveLabelAddresses();
+    this.assemble();
+  }
 
+  private saveLabelAddresses(): void {
+    while(this.parser.hasNextInstruction()) {
+      let instruction = this.parser.nextInstruction;
+
+      if (instruction.type === instructionTypes.LABEL) {
+        this.symbolTable.save(instruction.name, this.parser.lineCounter + 1)
+      }
+
+      this.parser.advance();
+    }
+    
+    this.parser.reset();
+  }
+
+  private assemble():void {
+    while(this.parser.hasNextInstruction()) {
+      let instruction = this.parser.nextInstruction;
+      let binary = '';
+
+      if (instruction.type === instructionTypes.LABEL) {
+        this.parser.advance();
+        continue;
+      }
+     
+      if (instruction.type === instructionTypes.A_INSTRUCTION) {
+        instruction.value = String(this.symbolTable.get(instruction.value));
+      }
+
+      binary = this.translator.convertInstruction(instruction);
+      
       this.parser.writeOnOutputFile(binary);
-      this.parser.advance()
+      this.parser.advance();
     }
   }
 }
