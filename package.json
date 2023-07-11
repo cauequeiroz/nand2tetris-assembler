@@ -1,7 +1,7 @@
 {
-  "name": "hack-assembler",
+  "name": "@cauequeiroz/hack-assembler",
   "version": "1.0.0",
-  "description": "",
+  "description": "Assembler written in Typescript for Nand2Tetris Hack Computer.",
   "main": "dist/index.js",
   "bin": {
     "hack-assembler": "./dist/index.js"
@@ -10,9 +10,11 @@
     "start:dev": "npx nodemon",
     "build": "npx tsc"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["assembler", "nand2tetris", "hack", "cli"],
+  "author": "Caue Queiroz",
   "license": "ISC",
+  "repository": "https://github.com/cauequeiroz/hack-assembler",
+  "homepage": "https://github.com/cauequeiroz/hack-assembler#readme",
   "devDependencies": {
     "@types/node": "^20.3.3",
     "n-readlines": "^1.0.1",
