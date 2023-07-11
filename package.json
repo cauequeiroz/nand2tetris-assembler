@@ -11,7 +11,7 @@
     "build": "npx tsc"
   },
   "keywords": ["assembler", "nand2tetris", "hack", "cli"],
-  "author": "Caue Queiroz",
+  "author": "Caue Queiroz <cauenqueiroz@gmail.com> (http://cauequeiroz.com.br/)",
   "license": "ISC",
   "repository": "https://github.com/cauequeiroz/hack-assembler",
   "homepage": "https://github.com/cauequeiroz/hack-assembler#readme",
