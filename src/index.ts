@@ -4,7 +4,7 @@ import Parser, { instructionTypes } from "./Parser";
 import SymbolTable from "./SymbolTable";
 import Translator from "./Translator";
 
-class HackAssembler {
+class Assembler {
   private parser: Parser;
   private translator: Translator;
   private symbolTable: SymbolTable;
@@ -54,4 +54,4 @@ class HackAssembler {
   }
 }
 
-new HackAssembler();
+new Assembler();

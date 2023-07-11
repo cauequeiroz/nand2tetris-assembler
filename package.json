@@ -1,10 +1,10 @@
 {
-  "name": "@cauequeiroz/hack-assembler",
+  "name": "@cauequeiroz/nand2tetris-assembler",
   "version": "1.0.0",
   "description": "Assembler written in Typescript for Nand2Tetris Hack Computer.",
   "main": "dist/index.js",
   "bin": {
-    "hack-assembler": "./dist/index.js"
+    "nand2tetris-assembler": "./dist/index.js"
   },
   "scripts": {
     "start:dev": "npx nodemon",
@@ -13,8 +13,8 @@
   "keywords": ["assembler", "nand2tetris", "hack", "cli"],
   "author": "Caue Queiroz <cauenqueiroz@gmail.com> (http://cauequeiroz.com.br/)",
   "license": "ISC",
-  "repository": "https://github.com/cauequeiroz/hack-assembler",
-  "homepage": "https://github.com/cauequeiroz/hack-assembler#readme",
+  "repository": "https://github.com/cauequeiroz/nand2tetris-assembler",
+  "homepage": "https://github.com/cauequeiroz/nand2tetris-assembler#readme",
   "devDependencies": {
     "@types/node": "^20.3.3",
     "n-readlines": "^1.0.1",

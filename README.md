@@ -1,4 +1,4 @@
-# Hack Assembler
+# Nand2Tetris Assembler
 
 Assembler written in Typescript for Nand2Tetris Hack Computer. This assembler is the week 6 project of [Nand2Tetris Part 1](https://www.coursera.org/learn/build-a-computer) course.
 
