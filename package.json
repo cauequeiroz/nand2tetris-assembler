@@ -1,11 +1,14 @@
 {
-  "name": "assembler",
+  "name": "hack-assembler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "hack-assembler": "./dist/index.js"
+  },
   "scripts": {
     "start:dev": "npx nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",

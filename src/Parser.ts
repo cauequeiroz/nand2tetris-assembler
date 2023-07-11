@@ -63,7 +63,7 @@ export default class Parser {
   }
 
   private getFileFromDisk(filename: string): void {
-    this.file = fs.readFileSync(path.join(__dirname, filename), {
+    this.file = fs.readFileSync(path.resolve(process.cwd(), filename), {
       encoding: "utf-8",
       flag: "r"
     });
@@ -119,7 +119,7 @@ export default class Parser {
 
   private createOutputFile(filename: string) {
     this.outputFile = fs.createWriteStream(
-      path.join(__dirname, filename.replace('.asm', '.hack')),
+      path.resolve(process.cwd(), filename.replace('.asm', '.hack')),
       { flags: 'w' }
     );    
   }

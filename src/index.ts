@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import Parser, { instructionTypes } from "./Parser";
 import SymbolTable from "./SymbolTable";
 import Translator from "./Translator";
@@ -8,7 +10,7 @@ class HackAssembler {
   private symbolTable: SymbolTable;
 
   constructor() {
-    this.parser = new Parser('../programs/pong/Pong.asm');
+    this.parser = new Parser(process.argv[2]);
     this.translator = new Translator();
     this.symbolTable = new SymbolTable();
 
