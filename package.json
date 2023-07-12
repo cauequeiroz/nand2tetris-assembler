@@ -1,6 +1,6 @@
 {
   "name": "@cauequeiroz/nand2tetris-assembler",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Assembler written in Typescript for Nand2Tetris Hack Computer.",
   "main": "dist/index.js",
   "bin": {

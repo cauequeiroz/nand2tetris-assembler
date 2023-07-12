@@ -15,7 +15,7 @@ $ nand2tetris-assembler ./path/to/file.asm
 ```
 
 ```
-$ npx @cauequeiroz/nand2tetris-assembler ./path/to/file/asm
+$ npx @cauequeiroz/nand2tetris-assembler ./path/to/file.asm
 ```
 
 After that, the output file with machine code only (`.hack`) will appears on the same directory of input file.
